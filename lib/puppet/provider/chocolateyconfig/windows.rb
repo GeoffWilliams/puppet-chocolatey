@@ -27,40 +27,9 @@ Puppet::Type.type(:chocolateyconfig).provide(:windows) do
   def self.get_configs
     []
   end
-  # def self.get_configs
-  #   PuppetX::Chocolatey::ChocolateyCommon.set_env_chocolateyinstall
-  #
-  #   choco_config = PuppetX::Chocolatey::ChocolateyCommon.choco_config_file
-  #   raise Puppet::ResourceError, "Config file not found for Chocolatey. Please make sure you have Chocolatey installed." if choco_config.nil?
-  #   raise Puppet::ResourceError, "An install was detected, but was unable to locate config file at #{choco_config}." unless PuppetX::Chocolatey::ChocolateyCommon.file_exists?(choco_config)
-  #
-  #   Puppet.debug("Gathering sources from '#{choco_config}'.")
-  #   config = REXML::Document.new File.read(choco_config)
-  #
-  #   config.elements.to_a( '//add' )
-  # end
-
-  # def self.get_config(element)
-  #   config = {}
-  #   return config if element.nil?
-  #
-  #   config[:name] = element.attributes['key'] if element.attributes['key']
-  #   config[:value] = element.attributes['value'] if element.attributes['value']
-  #   config[:description] = element.attributes['description'] if element.attributes['description']
-  #
-  #   config[:ensure] = :present
-  #
-  #   Puppet.debug("Loaded config '#{config.inspect}'.")
-  #
-  #   config
-  # end
 
   def self.configs
     []
-    # @configs ||=  get_configs.collect do |item|
-    #   config = get_config(item)
-    #   new(config)
-    # end
   end
 
   def self.refresh_configs
@@ -99,32 +68,6 @@ Puppet::Type.type(:chocolateyconfig).provide(:windows) do
   mk_resource_methods
 
   def flush
-    # choco_version = Gem::Version.new(PuppetX::Chocolatey::ChocolateyCommon.choco_version)
-    #
-    # args = []
-    # args << 'config'
-    #
-    # # look at the hash, then flush if present.
-    # # If all else fails, looks at resource[:ensure]
-    # property_ensure = @property_hash[:ensure]
-    # property_ensure = @property_flush[:ensure] if @property_flush[:ensure]
-    # property_ensure = resource[:ensure] if property_ensure.nil?
-    #
-    # command = 'set'
-    # command = 'unset' if property_ensure == :absent
-    #
-    # args << command
-    # args << '--name' << resource[:name]
-    #
-    # if property_ensure != :absent
-    #   args << '--value' << resource[:value]
-    # end
-    #
-    # begin
-    #   Puppet::Util::Execution.execute([command(:chocolatey), *args])
-    # rescue Puppet::ExecutionFailure => e
-    #   raise Puppet::Error, "An error occurred running choco. Unable to set Chocolateyconfig[#{self.name}]: #{e}"
-    # end
 
     @property_hash.clear
     @property_flush.clear
