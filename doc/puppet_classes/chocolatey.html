@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Puppet Class: chocolatey
+  
+    &mdash; Documentation by YARD 0.9.9
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" charset="utf-8" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" charset="utf-8" />
+
+<script type="text/javascript" charset="utf-8">
+  pathId = "puppet_classes::chocolatey";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../puppet_class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (c)</a> &raquo;
+    <span class='title'><span class='object_link'>Puppet Classes</span></span>
+     &raquo; 
+    <span class="title">chocolatey</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="puppet_class_list_link"
+        href="../puppet_class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Puppet Class: chocolatey</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>::chocolatey::params</dd>
+  </dl>
+  
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>
+      manifests/init.pp
+    </dd>
+  </dl>
+</div>
+
+<h2>Overview</h2>
+<div class="docstring">
+  <div class="discussion">
+    
+<p>chocolatey - Used for managing installation and configuration of Chocolatey
+itself.</p>
+
+  </div>
+</div>
+<div class="tags">
+  
+  <div class="examples">
+    <p class="tag_title">Examples:</p>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Default - This will by default ensure Chocolatey is installed and ready for
+use.</p>
+</div></p>
+      
+      <pre class="example code"><code><span class='id identifier rubyid_include'>include</span> <span class='id identifier rubyid_chocolatey'>chocolatey</span></code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Override default install location</p>
+</div></p>
+      
+      <pre class="example code"><code>class {&#39;chocolatey&#39;:
+  choco_install_location =&gt; &#39;D:\secured\choco&#39;,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Use an internal Chocolatey.nupkg for installation</p>
+</div></p>
+      
+      <pre class="example code"><code>class {&#39;chocolatey&#39;:
+  chocolatey_download_url         =&gt; &#39;https://internalurl/to/chocolatey.nupkg&#39;,
+  use_7zip                        =&gt; false,
+  choco_install_timeout_seconds   =&gt; 2700,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Use a file chocolatey.0.9.9.9.nupkg for installation</p>
+</div></p>
+      
+      <pre class="example code"><code>class {&#39;chocolatey&#39;:
+  chocolatey_download_url         =&gt; &#39;file:///c:/location/of/chocolatey.0.9.9.9.nupkg&#39;,
+  use_7zip                        =&gt; false,
+  choco_install_timeout_seconds   =&gt; 2700,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Log chocolatey bootstrap installer script output</p>
+</div></p>
+      
+      <pre class="example code"><code>class {&#39;chocolatey&#39;:
+  log_output              =&gt; true,
+}</code></pre>
+    
+      
+        <p class="example_title"><div class='inline'>
+<p>Disable autouninstaller (use when less than 0.9.9.8)</p>
+</div></p>
+      
+      <pre class="example code"><code>class {&#39;chocolatey&#39;:
+  enable_autouninstaller =&gt; false,
+}</code></pre>
+    
+  </div>
+<p class="tag_title">Parameters:</p>
+<ul class="param">
+  
+    <li>
+      
+        <span class='name'>choco_install_location</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::chocolatey::params::install_location</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Where Chocolatey install should be located. This needs to be an absolute
+path starting with a drive letter e.g. <code>c:&lt;/code&gt;. Defaults to
+the currently detected install location based on the
+&lt;code&gt;ChocolateyInstall</code> environment variable, falls back to
+<code>&#39;C:\ProgramData\chocolatey&#39;</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>use_7zip</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::chocolatey::params::use_7zip</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Whether to use built-in shell or allow installer to download 7zip to
+extract <code>chocolatey.nupkg</code> during installation. Defaults to
+<code>false</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>choco_install_timeout_seconds</span>
+      
+      
+        <span class='type'>(<tt>Integer</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::chocolatey::params::install_timeout_seconds</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>How long in seconds should be allowed for the install of Chocolatey
+(including .NET Framework 4 if necessary). Defaults to <code>1500</code>
+(25 minutes).</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>chocolatey_download_url</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::chocolatey::params::download_url</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>A url that will return <code>chocolatey.nupkg</code>. This must be a url,
+but not necessarily an OData feed. Any old url location will work. Defaults
+to
+<code>&#39;https://chocolatey.org/api/v2/package/chocolatey/&#39;</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>enable_autouninstaller</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::chocolatey::params::enable_autouninstaller</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>[Deprecated] - Should auto uninstaller be turned on? Auto uninstaller is
+what allows Chocolatey to automatically manage the uninstall of software
+from Programs and Features without necessarily requiring a
+<code>chocolateyUninstall.ps1</code> file in the package. Defaults to
+<code>true</code>. Setting is ignored in Chocolatey v0.9.10+.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>log_output</span>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>false</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>Log output from the installer. Defaults to <code>false</code>.</p>
+</div>
+      
+    </li>
+  
+    <li>
+      
+        <span class='name'>chocolatey_version</span>
+      
+      
+        <span class='type'>(<tt>String</tt>)</span>
+      
+      
+        <em class="default">(defaults to: <tt>$::chocolatey::params::chocolatey_version</tt>)</em>
+      
+      
+        &mdash;
+        <div class='inline'>
+<p>chocolatey version, falls back to <code>$::chocolateyversion</code>.</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+<p class="tag_title">Author:</p>
+<ul class="author">
+  
+    <li>
+      
+      
+      
+      
+        
+        <div class='inline'>
+<p>Rob Reynolds, Rich Siegel, and puppet-chocolatey contributors</p>
+</div>
+      
+    </li>
+  
+</ul>
+
+</div><div class="method_details_list">
+  <table class="source_code">
+    <tr>
+      <td>
+        <pre class="lines">
+
+
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77
+78
+79
+80
+81
+82
+83
+84
+85
+86
+87
+88
+89
+90
+91
+92</pre>
+      </td>
+      <td>
+        <pre class="code"><span class="info file"># File 'manifests/init.pp', line 62</span>
+
+class chocolatey (
+  $choco_install_location         = $::chocolatey::params::install_location,
+  $use_7zip                       = $::chocolatey::params::use_7zip,
+  $choco_install_timeout_seconds  = $::chocolatey::params::install_timeout_seconds,
+  $chocolatey_download_url        = $::chocolatey::params::download_url,
+  $enable_autouninstaller         = $::chocolatey::params::enable_autouninstaller,
+  $log_output                     = false,
+  $chocolatey_version             = $::chocolatey::params::chocolatey_version
+) inherits ::chocolatey::params {
+
+
+validate_string($choco_install_location)
+# lint:ignore:140chars
+validate_re($choco_install_location, &#39;^\w\:&#39;,
+&quot;Please use a full path for choco_install_location starting with a local drive. Reference choco_install_location =&gt; &#39;${choco_install_location}&#39;.&quot;
+)
+# lint:endignore
+
+  validate_bool($use_7zip)
+  validate_integer($choco_install_timeout_seconds)
+
+  validate_string($chocolatey_download_url)
+# lint:ignore:140chars
+  validate_re($chocolatey_download_url,[&#39;^http\:\/\/&#39;,&#39;^https\:\/\/&#39;,&#39;file\:\/\/\/&#39;],
+    &quot;For chocolatey_download_url, if not using the default &#39;${::chocolatey::params::download_url}&#39;, please use a Http/Https/File Url that downloads &#39;chocolatey.nupkg&#39;.&quot;
+  )
+# lint:endignore
+
+  validate_bool($enable_autouninstaller)
+
+}</pre>
+      </td>
+    </tr>
+  </table>
+</div>
+</div>
+
+      <div id="footer">
+     Generated by <a href="http://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>.
+</div>
+
+    </div>
+  </body>
+</html>
