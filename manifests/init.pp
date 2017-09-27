@@ -66,7 +66,8 @@ class chocolatey (
   $chocolatey_download_url        = $::chocolatey::params::download_url,
   $enable_autouninstaller         = $::chocolatey::params::enable_autouninstaller,
   $log_output                     = false,
-  $chocolatey_version             = $::chocolatey::params::chocolatey_version
+  $chocolatey_version             = $::chocolatey::params::chocolatey_version,
+  $install_proxy                  = '$false',
 ) inherits ::chocolatey::params {
 
 

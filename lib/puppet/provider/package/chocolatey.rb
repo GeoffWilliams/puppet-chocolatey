@@ -71,5 +71,5 @@ Puppet::Type.type(:package).provide(:chocolatey, :parent => Puppet::Provider::Pa
   def unhold
     "unheld :)"
   end
-  
+
 end
